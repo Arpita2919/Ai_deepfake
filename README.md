@@ -19,7 +19,7 @@
 
 *A lightweight, web-based system that detects whether uploaded images are AI-generated or real.*
 
-**Department of Computer Science & Application · Section 2FH**
+**Department of Computer Science & Engineering (CSED) · Section 2FH**
 
 </div>
 
@@ -79,7 +79,7 @@ The system outputs a **probability score** (e.g., `72% — Likely AI-Generated`)
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                 LAYER 2 — API GATEWAY                       │
-│      Flask / Django REST  ·  File Validator  ·  Router      │
+│      Node.js / Express.js  ·  File Validator  ·  Router     │
 └──────────┬──────────────────────────────┬───────────────────┘
            │                              │
            ▼                              ▼
@@ -92,8 +92,8 @@ The system outputs a **probability score** (e.g., `72% — Likely AI-Generated`)
            │                                  │
            │               ┌──────────────────▼────────────────┐
            │               │         ML MODEL LAYER            │
-           │               │   Pre-trained CNN Classifier       │
-           │               │   TensorFlow / PyTorch Inference   │
+           │               │   Pre-trained Deepfake Classifier  │
+           │               │   OpenCV-based Inference           │
            │               └──────────────────┬────────────────┘
            │                                  │
            └──────────────┬───────────────────┘
@@ -108,6 +108,11 @@ The system outputs a **probability score** (e.g., `72% — Likely AI-Generated`)
                       ▼
               Result returned to UI
          [ 72% — ⚠ LIKELY SYNTHETIC ]
+
+          ┌────────────────────────┐
+          │        MongoDB         │
+          │  Store results & logs  │
+          └────────────────────────┘
 ```
 
 ---
@@ -158,19 +163,29 @@ User Uploads Image
 
 ## 🛠️ Tech Stack
 
-**Backend**
-```
-Python 3.10+    TensorFlow / PyTorch    OpenCV    Flask / Django    NumPy    Pillow
-```
-
 **Frontend**
 ```
 React.js    JavaScript (ES6+)    CSS3    HTML5
 ```
 
-**ML & Data**
+**Backend**
 ```
-Pre-trained CNN (EfficientNet-based)    Public Deepfake Datasets    FaceForensics++
+Node.js    Express.js    REST API
+```
+
+**Database**
+```
+MongoDB
+```
+
+**ML & Image Processing**
+```
+OpenCV    Pre-trained Deepfake Detection Model
+```
+
+**Dataset**
+```
+Sample real and AI-generated images (for testing)
 ```
 
 ---
@@ -220,8 +235,8 @@ By project completion, DeepScan will:
 
 | Name | Role | ID |
 |---|---|---|
-| **Harshita Nagpal** | Frontend Development (React.js) & UI Design | 12515990016 |
-| **Arpita Raj** | Frontend Development & Image Processing | 12515990007 |
+| **Harshita Nagpal** | Frontend Development & Documentation | 12515990016 |
+| **Arpita Raj** | Frontend Development & UI Design | 12515990007 |
 | **Naman Singh** | Backend Development & Testing | 12515990024 |
 | **Anurag Singh** | Backend Development & System Analysis | 12515990006 |
 
@@ -242,7 +257,7 @@ By project completion, DeepScan will:
 
 <div align="center">
 
-*Department of Computer Science & Application · Section 2FH · Academic Project*
+*Department of Computer Science & Engineering (CSED) · Section 2FH · Academic Project*
 
 **Deepfake AI Verifier** — Fighting synthetic misinformation, one pixel at a time.
 
