@@ -1,12 +1,13 @@
 <div align="center">
 
 ```
-██████╗ ███████╗███████╗██████╗ ███████╗ ██████╗ █████╗ ███╗   ██╗
-██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗████╗  ██║
-██║  ██║█████╗  █████╗  ██████╔╝███████╗██║     ███████║██╔██╗ ██║
-██║  ██║██╔══╝  ██╔══╝  ██╔═══╝ ╚════██║██║     ██╔══██║██║╚██╗██║
-██████╔╝███████╗███████╗██║     ███████║╚██████╗██║  ██║██║ ╚████║
-╚═════╝ ╚══════╝╚══════╝╚═╝     ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
+██████╗ ███████╗███████╗██████╗ ███████╗ █████╗ ██╗  ██╗███████╗
+██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗██║ ██╔╝██╔════╝
+██║  ██║█████╗  █████╗  ██████╔╝█████╗  ███████║█████╔╝ █████╗
+██║  ██║██╔══╝  ██╔══╝  ██╔═══╝ ██╔══╝  ██╔══██║██╔═██╗ ██╔══╝
+██████╔╝███████╗███████╗██║     ██║     ██║  ██║██║  ██╗███████╗
+╚═════╝ ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+                    AI-Generated Media Verifier
 ```
 
 ### 🔍 AI-Generated Media Verifier — Light Edition
@@ -41,7 +42,7 @@
 
 ## 🧠 About the Project
 
-DeepScan is a **lightweight, web-based deepfake and AI-generated media verifier** built as an academic project. As synthetic media becomes increasingly indistinguishable from reality, tools that help everyday users verify digital content are critical.
+Deepfake is a **lightweight, web-based deepfake and AI-generated media verifier** built as an academic project. As synthetic media becomes increasingly indistinguishable from reality, tools that help everyday users verify digital content are critical.
 
 DeepScan analyzes uploaded images using:
 - **Pre-trained AI classification models** (CNN / EfficientNet-based)
@@ -243,6 +244,6 @@ By project completion, DeepScan will:
 
 *Department of Computer Science & Application · Section 2FH · Academic Project*
 
-**DeepScan** — Fighting synthetic misinformation, one pixel at a time.
+**Deepfake AI Verifier** — Fighting synthetic misinformation, one pixel at a time.
 
 </div>
