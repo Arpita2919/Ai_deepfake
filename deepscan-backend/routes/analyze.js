@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');          // ← ADD THIS LINE
+const multer = require('multer');
 const upload = require('../middleware/fileValidator');
 
 router.post('/analyze', upload.single('image'), (req, res) => {

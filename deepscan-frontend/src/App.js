@@ -15,7 +15,7 @@ function App() {
             artifact, and metadata analysis.
           </p>
         </div>
-        <UploadZone />
+        <UploadZone id="analyzer" />
       </main>
     </div>
   );

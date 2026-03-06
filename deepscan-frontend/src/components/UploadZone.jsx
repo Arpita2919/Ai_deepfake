@@ -4,7 +4,7 @@ import { analyzeImage } from '../services/api';
 import ResultCard from './ResultCard';
 import MetadataPanel from './MetadataPanel';
 
-export default function UploadZone() {
+export default function UploadZone({ id }) {
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -57,7 +57,7 @@ export default function UploadZone() {
   };
 
   return (
-    <section className="upload-zone">
+    <section className="upload-zone" id={id}>
       <div className="upload-zone__card">
         <div
           className={`upload-zone__drop ${isDragActive ? 'is-active' : ''}`}
