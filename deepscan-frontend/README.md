@@ -24,18 +24,21 @@ This frontend implements the following workflow:
 
 ```
 deepscan-frontend/
+├── public/
+│   └── index.html            # Includes Plus Jakarta Sans font
 ├── src/
 │   ├── services/
-│   │   └── api.js              # Backend API bridge
+│   │   └── api.js            # Backend API bridge
 │   ├── components/
-│   │   ├── Navbar.jsx          # App header / logo
-│   │   ├── UploadZone.jsx      # Main upload & analysis UI
+│   │   ├── Navbar.jsx        # Floating navbar with nav links & CTA buttons
+│   │   ├── UploadZone.jsx    # Main upload & analysis UI
 │   │   ├── ConfidenceMeter.jsx # Visual score bar
-│   │   ├── ResultCard.jsx      # Verdict & score breakdown
-│   │   └── MetadataPanel.jsx   # EXIF details
+│   │   ├── ResultCard.jsx    # Verdict & score breakdown
+│   │   └── MetadataPanel.jsx # EXIF details
 │   ├── App.js
-│   ├── App.css
-│   └── index.js
+│   ├── App.css               # CSS variables, BEM-style classes
+│   ├── index.js
+│   └── index.css             # Base styles, smooth scroll
 └── package.json
 ```
 
@@ -48,10 +51,13 @@ deepscan-frontend/
 - Endpoint: `POST /api/analyze`
 - Base URL configurable via `REACT_APP_API_BASE_URL` (default: `http://localhost:5000`)
 
-### 2. `Navbar.jsx` — App Header
+### 2. `Navbar.jsx` — Floating Navbar
 
-- Simple header with app name/logo: **DeepScan AI Detector**
-- Dark background styling for clear visual separation
+- **Floating bar** — Light pill-shaped bar with backdrop blur, inset from top
+- **Logo pill** — "DeepScan" in a light-gray pill with navy text
+- **Nav links** — How it works, Features, About (smooth scroll to analyzer)
+- **Action buttons** — "Learn more" (secondary), "Try now" (primary CTA); both scroll to upload section
+- Accepts scroll-to behavior via `#analyzer` anchor
 
 ### 3. `UploadZone.jsx` — Core Upload & Analysis
 
@@ -62,6 +68,7 @@ deepscan-frontend/
 - **On submit** → calls `analyzeImage()` from `api.js`
 - Displays loading state ("Analyzing...") and error messages
 - Renders `ResultCard` and `MetadataPanel` when analysis completes
+- Accepts optional `id` prop for scroll anchoring (e.g. `id="analyzer"`)
 
 ### 4. `ConfidenceMeter.jsx` — Visual Score Bar
 
@@ -72,6 +79,7 @@ deepscan-frontend/
   - Yellow (`#f9a825`) if 50–70
   - Red (`#e64a19`) if &gt; 70
 - Displays "AI Probability: X.X%"
+- Handles undefined/NaN with 0% fallback
 
 ### 5. `ResultCard.jsx` — Verdict Display
 
@@ -87,6 +95,15 @@ deepscan-frontend/
 - Displays: Camera Make, Camera Model, Software, Timestamp
 - **Anomaly highlighting**: missing values shown in red with "Missing" label
 - Uses `MetadataRow` sub-component for consistent row styling
+
+## UI & Styling
+
+- **Typography** — Plus Jakarta Sans (Google Fonts) for a professional look
+- **CSS variables** — Centralized colors, shadows, border radii in `App.css`
+- **Color palette** — Navy primary (`#1e3a5f`), light gray background, subtle borders
+- **Navbar** — Floating, rounded bar with pill logo and CTA buttons
+- **Cards** — White surfaces with light borders and soft shadows
+- **Responsive** — Grid and navbar adapt for smaller screens
 
 ## Environment Configuration
 
@@ -119,6 +136,12 @@ npm start
 
 Opens [http://localhost:3000](http://localhost:3000). The app will reload when you edit files.
 
+**If `npm start` fails** (e.g. due to npm/Python path issues), run directly with Node:
+
+```bash
+node node_modules/react-scripts/bin/react-scripts.js start
+```
+
 ### Build for Production
 
 ```bash
@@ -138,7 +161,7 @@ npm test
 The frontend expects the backend to:
 
 - Expose `POST /api/analyze` accepting `multipart/form-data` with an `image` field
-- Return JSON in this shape:
+- Return JSON. For full UI display, the preferred shape is:
 
 ```json
 {
@@ -156,10 +179,6 @@ The frontend expects the backend to:
 }
 ```
 
+If the backend returns a different format, the frontend shows placeholders (e.g. "Pending", "--", "Missing") for missing fields.
+
 Ensure the backend is running (default `http://localhost:5000`) before analyzing images.
-
-## Styling
-
-- Styles are defined in `App.css` using BEM-like class names
-- Light theme with indigo accents; cards with soft shadows
-- Responsive grid for results on smaller screens (`minmax(280px, 1fr)`)
