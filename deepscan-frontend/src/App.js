@@ -7,6 +7,9 @@ import HowItWorksPage from './pages/HowItWorksPage';
 import FeaturesPage from './pages/FeaturesPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -19,8 +22,11 @@ function App() {
           <Route path="/features" element={<FeaturesPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }
