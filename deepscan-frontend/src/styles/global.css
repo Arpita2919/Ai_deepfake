@@ -1,0 +1,14 @@
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:#0f172a;
+color:white;
+}
+
+section{
+padding:80px 10%;
+}
+
+button{
+cursor:pointer;
+}

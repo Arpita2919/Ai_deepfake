@@ -1,7 +1,11 @@
-import axios from "axios";
+import axios from "axios"
 
-const API = axios.create({
-  baseURL: "http://localhost:5000/api"
-});
+export const detectImage=(file)=>{
 
-export default API;
+const formData=new FormData()
+
+formData.append("image",file)
+
+return axios.post("http://localhost:5000/detect",formData)
+
+}
