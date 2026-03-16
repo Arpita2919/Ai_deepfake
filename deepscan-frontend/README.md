@@ -1,70 +1,184 @@
-# Getting Started with Create React App
+# DeepScan Frontend — AI Image Authenticity Check
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based web application that allows users to upload images and receive an AI-generated authenticity probability score based on model analysis, artifact detection, and metadata inspection.
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+This frontend implements the following workflow:
 
-### `npm start`
+1. **User uploads** an image or a single video frame
+2. **System preprocesses** the media (handled by backend: resizing, normalization, metadata extraction)
+3. **Pre-trained AI model** analyzes the input on the backend
+4. **Detection** checks for AI-generated artifacts (texture inconsistencies, abnormal patterns, missing metadata)
+5. **Probability calculation** of AI generation is performed
+6. **Results** are displayed in a clear, understandable format
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **React 19** — UI framework
+- **axios** — HTTP client for API calls
+- **react-dropzone** — Drag & drop file upload
+- **Create React App** — Build tooling
 
-### `npm test`
+## Project Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+deepscan-frontend/
+├── public/
+│   └── index.html            # Includes Plus Jakarta Sans font
+├── src/
+│   ├── services/
+│   │   └── api.js            # Backend API bridge
+│   ├── components/
+│   │   ├── Navbar.jsx        # Floating navbar with nav links & CTA buttons
+│   │   ├── UploadZone.jsx    # Main upload & analysis UI
+│   │   ├── ConfidenceMeter.jsx # Visual score bar
+│   │   ├── ResultCard.jsx    # Verdict & score breakdown
+│   │   └── MetadataPanel.jsx # EXIF details
+│   ├── App.js
+│   ├── App.css               # CSS variables, BEM-style classes
+│   ├── index.js
+│   └── index.css             # Base styles, smooth scroll
+└── package.json
+```
 
-### `npm run build`
+## Components
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1. `services/api.js` — Backend Bridge
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Uses `axios.post` to send the image as `FormData` to the Express backend
+- Exports one function: `analyzeImage(file)`
+- Endpoint: `POST /api/analyze`
+- Base URL configurable via `REACT_APP_API_BASE_URL` (default: `http://localhost:5000`)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2. `Navbar.jsx` — Floating Navbar
 
-### `npm run eject`
+- **Floating bar** — Light pill-shaped bar with backdrop blur, inset from top
+- **Logo pill** — "DeepScan" in a light-gray pill with navy text
+- **Nav links** — How it works, Features, About (smooth scroll to analyzer)
+- **Action buttons** — "Learn more" (secondary), "Try now" (primary CTA); both scroll to upload section
+- Accepts scroll-to behavior via `#analyzer` anchor
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 3. `UploadZone.jsx` — Core Upload & Analysis
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Uses `react-dropzone` for drag & drop image upload
+- Single file only; accepts images (`image/*`)
+- **Image preview** via `URL.createObjectURL(file)` (with proper cleanup on unmount)
+- **State**: `file`, `previewUrl`, `loading`, `result`, `error`
+- **On submit** → calls `analyzeImage()` from `api.js`
+- Displays loading state ("Analyzing...") and error messages
+- Renders `ResultCard` and `MetadataPanel` when analysis completes
+- Accepts optional `id` prop for scroll anchoring (e.g. `id="analyzer"`)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4. `ConfidenceMeter.jsx` — Visual Score Bar
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Accepts `score` (0–100) as a prop
+- CSS width animation: `width: ${score}%` with 0.6s transition
+- **Color logic**:
+  - Green (`#2e7d32`) if score &lt; 50
+  - Yellow (`#f9a825`) if 50–70
+  - Red (`#e64a19`) if &gt; 70
+- Displays "AI Probability: X.X%"
+- Handles undefined/NaN with 0% fallback
 
-## Learn More
+### 5. `ResultCard.jsx` — Verdict Display
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Props**: `score`, `verdict`, `model_score`, `artifact_score`, `metadata_score`
+- Shows verdict label (e.g. "Likely AI-Generated" / "Likely Authentic")
+- Renders `ConfidenceMeter` for the main score
+- Score breakdown grid: Model Score, Artifact Score, Metadata Score
+- Handles missing values with `--` fallback
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 6. `MetadataPanel.jsx` — EXIF Details
 
-### Code Splitting
+- Accepts `metadata` object as prop
+- Displays: Camera Make, Camera Model, Software, Timestamp
+- **Anomaly highlighting**: missing values shown in red with "Missing" label
+- Uses `MetadataRow` sub-component for consistent row styling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## UI & Styling
 
-### Analyzing the Bundle Size
+- **Typography** — Plus Jakarta Sans (Google Fonts) for a professional look
+- **CSS variables** — Centralized colors, shadows, border radii in `App.css`
+- **Color palette** — Navy primary (`#1e3a5f`), light gray background, subtle borders
+- **Navbar** — Floating, rounded bar with pill logo and CTA buttons
+- **Cards** — White surfaces with light borders and soft shadows
+- **Responsive** — Grid and navbar adapt for smaller screens
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Environment Configuration
 
-### Making a Progressive Web App
+Create a `.env` file in the project root to override the backend URL:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```env
+REACT_APP_API_BASE_URL=http://localhost:5000
+```
 
-### Advanced Configuration
+Replace with your actual backend URL when deploying (e.g. `https://api.yoursite.com`).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Getting Started
 
-### Deployment
+### Prerequisites
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Node.js 18+
+- Backend server running (see project root for backend setup)
 
-### `npm run build` fails to minify
+### Install Dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm install
+```
+
+### Run Development Server
+
+```bash
+npm start
+```
+
+Opens [http://localhost:3000](http://localhost:3000). The app will reload when you edit files.
+
+**If `npm start` fails** (e.g. due to npm/Python path issues), run directly with Node:
+
+```bash
+node node_modules/react-scripts/bin/react-scripts.js start
+```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+Outputs optimized static files to the `build/` folder.
+
+### Run Tests
+
+```bash
+npm test
+```
+
+## Backend Integration
+
+The frontend expects the backend to:
+
+- Expose `POST /api/analyze` accepting `multipart/form-data` with an `image` field
+- Return JSON. For full UI display, the preferred shape is:
+
+```json
+{
+  "score": 72.5,
+  "verdict": "Likely AI-Generated",
+  "model_score": 75,
+  "artifact_score": 68,
+  "metadata_score": 74,
+  "metadata": {
+    "camera_make": "Canon",
+    "camera_model": "EOS R5",
+    "software": "Adobe Lightroom",
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+}
+```
+
+If the backend returns a different format, the frontend shows placeholders (e.g. "Pending", "--", "Missing") for missing fields.
+
+Ensure the backend is running (default `http://localhost:5000`) before analyzing images.
