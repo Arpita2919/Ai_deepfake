@@ -56,12 +56,12 @@ export default function FeaturesPage() {
           <p>EXIF details (camera, software, timestamp). Missing values are flagged to highlight anomalies.</p>
         </article>
         <article className="feature-card">
-          <h2>Fast feedback</h2>
-          <p>Designed for a quick decision loop: upload → analyze → understand.</p>
+          <h2>Batch Processing</h2>
+          <p>Analyze multiple images at once to streamline your workflow and save time.</p>
         </article>
         <article className="feature-card">
-          <h2>Responsive UI</h2>
-          <p>Works cleanly on desktop and mobile with a professional, minimal interface.</p>
+          <h2>API Access</h2>
+          <p>Integrate our deepfake detection capabilities directly into your own applications seamlessly.</p>
         </article>
       </section>
     </div>

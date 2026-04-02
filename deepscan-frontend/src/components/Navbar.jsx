@@ -39,16 +39,9 @@ export default function Navbar({ isAuthed, userEmail, onAuthNavigate, onLogout, 
         </nav>
 
         <div className="navbar__actions">
-          <Link to="/how-it-works" className="navbar__btn navbar__btn--secondary">
+          <Link to="/learn-more" className="navbar__btn navbar__btn--secondary">
             Learn more
           </Link>
-          <button
-            type="button"
-            className="navbar__btn navbar__btn--primary"
-            onClick={goToAnalyzer}
-          >
-            Try now
-          </button>
 
           {isAuthed ? (
             <>

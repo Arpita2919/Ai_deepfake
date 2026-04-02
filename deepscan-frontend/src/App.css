@@ -301,7 +301,7 @@
 .landing__right {
   position: relative;
   z-index: 1;
-  min-height: 220px;
+  min-height: 380px;
 }
 
 .landing__panel {
@@ -314,7 +314,7 @@
 }
 
 .landing__panel--light {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(17, 24, 39, 0.86);
 }
 
 .landing__panel--dark {
@@ -1412,7 +1412,7 @@
   position: relative;
   padding: 24px 18px 10px;
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(17, 24, 39, 0.86);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: var(--shadow-soft);
 }
