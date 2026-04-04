@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Navigate, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
@@ -26,11 +26,11 @@ function App() {
     setAuthState(saved);
   };
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     clearAuth();
     setAuthState(null);
     navigate('/');
-  };
+  }, [navigate]);
 
   const navbarProps = useMemo(
     () => ({
@@ -40,7 +40,7 @@ function App() {
       onLogout: handleLogout,
       onGoToChecker: () => navigate('/checker'),
     }),
-    [isAuthed, auth?.email, navigate]
+    [isAuthed, auth?.email, navigate, handleLogout]
   );
 
   return (
