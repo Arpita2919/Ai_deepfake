@@ -101,6 +101,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      REACT_APP_API_BASE_URL: ${{ secrets.REACT_APP_API_BASE_URL || 'http://localhost:5000' }}
 
     steps:
       - name: Checkout code
@@ -147,6 +149,6 @@ jobs:
             ${{ steps.img.outputs.frontend }}:latest
             ${{ steps.img.outputs.frontend }}:${{ github.sha }}
           build-args: |
-            REACT_APP_API_BASE_URL=${{ secrets.REACT_APP_API_BASE_URL || 'http://localhost:5000' }}
+            REACT_APP_API_BASE_URL=${{ env.REACT_APP_API_BASE_URL }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

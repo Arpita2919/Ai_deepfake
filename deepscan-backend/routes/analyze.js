@@ -3,7 +3,7 @@ const router = express.Router();
 const fs = require('fs').promises;
 const { upload, handleMulterError } = require('../middleware/fileValidator');
 const { analyzeMetadata } = require('../services/metadataService');
-const { runMLModel } = require('../services/mlService');
+const { runMLModel } = require('../services/mlservice');
 const { aggregateScores } = require('../services/scoreAggregator');
 const Result = require('../models/Result');
 

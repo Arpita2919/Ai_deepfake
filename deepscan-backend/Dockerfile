@@ -12,7 +12,11 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install production-only dependencies (no devDependencies)
-RUN npm ci --omit=dev
+# Use --ignore-scripts to avoid platform-specific postinstall issues
+RUN npm ci --omit=dev --ignore-scripts
+
+# Reinstall sharp with correct linux-musl binary for Alpine
+RUN npm install --cpu=x64 --os=linux --libc=musl sharp
 
 # ── Stage 2: Production image ────────────────────────────────
 FROM node:20-alpine AS runner
