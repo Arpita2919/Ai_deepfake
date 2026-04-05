@@ -318,14 +318,14 @@
   background: rgba(17, 24, 39, 0.86);
   width: 320px;
   height: 240px;
-  margin-top: 20px;
+  margin-top: -30px;
   margin-right: 40px;
   z-index: 1;
 }
 
 .landing__panel--dark {
   position: absolute;
-  top: 60px;
+  top: 100px;
   right: 0px;
   width: 320px;
   height: 240px;
@@ -674,6 +674,35 @@
   object-fit: contain;
 }
 
+.upload-zone__remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.upload-zone__remove-btn:hover {
+  background: rgba(220, 38, 38, 0.8);
+  border-color: rgba(220, 38, 38, 1);
+  transform: scale(1.05);
+}
+
+.upload-zone__description-input:focus {
+  border-color: rgba(0, 212, 255, 0.5) !important;
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1) !important;
+}
+
 .upload-zone__button {
   background: #0a0f1d;
   border: 1px solid rgba(0,212,255,0.3);
@@ -1013,7 +1042,7 @@
 .page-wide__art-card {
   position: absolute;
   right: 60px;
-  top: 10px;
+  top: -10px;
   width: 320px;
   height: 180px;
   background: rgba(17, 24, 39, 0.86);
@@ -1726,6 +1755,8 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 48px 32px;
   margin-bottom: 48px;
+  border-top: 1px solid #2d3239;
+  padding-top: 48px;
 }
 
 .footer__column {
@@ -1775,8 +1806,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 24px;
-  border-top: 1px solid #2d3239;
 }
 
 .footer__copyright,

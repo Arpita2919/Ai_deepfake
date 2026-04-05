@@ -40,7 +40,7 @@ export default function FeaturesPage() {
             </div>
             <div className="page-wide__art-line" />
             <div style={{ fontSize: '0.85rem', color: '#a0aec0', marginTop: '12px', marginBottom: '6px', display: 'flex', justifyContent: 'space-between' }}>
-              <span>Metadata Anomaly</span>
+              <span style={{ fontWeight: 700 }}>Metadata Anomaly</span>
               <span>63%</span>
             </div>
             <div className="page-wide__art-line page-wide__art-line--short" />
