@@ -141,35 +141,37 @@ export default function UploadZone({ id }) {
               <span className="upload-zone__file-name">{file.name}</span>
               <span className="upload-zone__file-size" style={{ borderColor: 'var(--border2)' }}>{formatFileSize(file.size)}</span>
             </div>
-
-            <div className="upload-zone__input-group" style={{ marginTop: '20px' }}>
-              <label style={{ display: 'block', fontSize: '0.65rem', fontFamily: "'JetBrains Mono', monospace", color: 'var(--muted)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                Analysis_Context
-              </label>
-              <textarea
-                className="upload-zone__desc"
-                placeholder="Enter scene details or metadata overrides..."
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                style={{
-                  width: '100%',
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid var(--border2)',
-                  borderRadius: '12px',
-                  padding: '12px 16px',
-                  color: 'var(--text)',
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '0.9rem',
-                  minHeight: '80px',
-                  resize: 'none',
-                  outline: 'none',
-                  transition: 'all 0.2s'
-                }}
-              />
-            </div>
           </div>
         )}
 
+        <div className="upload-zone__input-group" style={{ marginTop: '20px', padding: '0 20px' }}>
+          <label style={{ display: 'block', fontSize: '0.65rem', fontFamily: "'JetBrains Mono', monospace", color: 'var(--muted)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            Analysis_Context
+          </label>
+          <textarea
+            className="upload-zone__desc"
+            placeholder="Enter scene details or metadata overrides..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            style={{
+              width: '100%',
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid var(--border2)',
+              borderRadius: '12px',
+              padding: '12px 16px',
+              color: 'var(--text)',
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '0.9rem',
+              minHeight: '80px',
+              resize: 'none',
+              outline: 'none',
+              transition: 'all 0.2s',
+              borderBottom: '2px solid transparent'
+            }}
+            onFocus={(e) => e.target.style.borderColor = 'var(--primary)'}
+            onBlur={(e) => e.target.style.borderColor = 'var(--border2)'}
+          />
+        </div>
 
         <button
           className={`upload-zone__button ${loading ? 'is-loading' : ''} ${file ? 'is-ready' : ''}`}
