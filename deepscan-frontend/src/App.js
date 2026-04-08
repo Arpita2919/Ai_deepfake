@@ -46,6 +46,7 @@ function App() {
 
   return (
     <div className="app">
+      <CanvasParticles />
       <Navbar {...navbarProps} />
       <main className="app__content">
         <Routes>
