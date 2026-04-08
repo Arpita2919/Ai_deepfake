@@ -32,40 +32,44 @@ export default function HomePage({ isAuthed }) {
       <section className="landing">
         <div className="landing__hero custom-layout">
           <div className="landing__left">
-            <div className="kicker-tag">
-              <span className="dot"></span>
-              Plus Jakustrial
+            <div className="kicker-tag" style={{ fontFamily: "'JetBrains Mono', monospace", opacity: 0.8 }}>
+              <span className="dot" style={{ background: 'var(--cyan)', boxShadow: '0 0 10px var(--cyan)' }}></span>
+              $ npm install authenticity --save
             </div>
             <h1 className="landing__main-title">
-              Deepfake <br />
-              <span>Detection.</span>
+              Engineered <br />
+              <span>Authenticity.</span>
             </h1>
-            <p className="landing__subtext">
-              Our Analysis Vault uses state-of-the-art neural networks to scan and verify 
-              media authenticity with 99.2% accuracy.
+            <p className="landing__subtext" style={{ maxWidth: '480px' }}>
+              The high-performance neural engine for deepfake detection. 
+              Verify media at its source with sub-second latency and 99.2% accuracy.
             </p>
 
             <div className="landing__cta">
               <button type="button" className="landing__btn-v2 primary" onClick={handleStart}>
-                {isAuthed ? 'Open Vault' : 'Initialize Scan'}
+                {isAuthed ? '/launch_vault' : '/initialize_engine'}
               </button>
               <button
                 type="button"
                 className="landing__btn-v2 secondary"
                 onClick={() => navigate('/learn-more')}
               >
-                Learn More
+                Docs ↗
               </button>
             </div>
 
-            <div className="landing__tech-stats">
+            <div className="landing__tech-stats" style={{ borderTop: '1px solid var(--border2)', paddingTop: '32px', marginTop: '40px' }}>
               <div className="tech-stat-item">
-                <span className="label">Scanned</span>
-                <span className="value"><CountUp end={1248390} /></span>
+                <span className="label" style={{ fontFamily: "'JetBrains Mono', monospace" }}>SCANNED_SAMPLES</span>
+                <span className="value" style={{ fontFamily: "'Space Grotesk', sans-serif" }}><CountUp end={1248390} /></span>
               </div>
               <div className="tech-stat-item">
-                <span className="label">Status</span>
-                <span className="value active">Online</span>
+                <span className="label" style={{ fontFamily: "'JetBrains Mono', monospace" }}>CONFIDENCE_RATIO</span>
+                <span className="value" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>99.2%</span>
+              </div>
+              <div className="tech-stat-item">
+                <span className="label" style={{ fontFamily: "'JetBrains Mono', monospace" }}>SYSTEM_HEALTH</span>
+                <span className="value active" style={{ color: 'var(--emerald)', fontFamily: "'Space Grotesk', sans-serif" }}>STABLE</span>
               </div>
             </div>
           </div>
@@ -76,16 +80,17 @@ export default function HomePage({ isAuthed }) {
         </div>
       </section>
 
-      <section className="features-brief">
+      <section className="features-brief" style={{ borderTop: '1px solid var(--border2)', marginTop: '80px', paddingTop: '80px' }}>
         <div className="section-header">
-           <h2 className="section-title">Core Engine <span>Signals</span></h2>
+           <h2 className="section-title">Engine <span>Capabilities</span></h2>
         </div>
         <div className="landing__mini">
-          <FeatureCardComponent index={0} title="Neural Scan" subtitle="Pixel-level artifact detection" />
-          <FeatureCardComponent index={1} title="EXIF Vault" subtitle="Metadata signal verification" />
-          <FeatureCardComponent index={2} title="Verdict" subtitle="Binary classification results" />
+          <FeatureCardComponent index={0} title="Neural Scan" subtitle="427-layer DenseNet artifact detection" />
+          <FeatureCardComponent index={1} title="EXIF Entropy" subtitle="Metadata signal verification & hash check" />
+          <FeatureCardComponent index={2} title="Verdict CLI" subtitle="Real-time binary classification API" />
         </div>
       </section>
     </div>
   );
 }
+

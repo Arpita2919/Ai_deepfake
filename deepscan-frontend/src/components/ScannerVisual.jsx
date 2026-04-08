@@ -20,7 +20,7 @@ export default function ScannerVisual() {
         
         <div className="scanner-vault__content">
           <div className="scanner-vault__text-block">
-            <p className="scanner-vault__label">Plus Jakustrial</p>
+            <p className="scanner-vault__label">Neural Engine v2</p>
             <h3 className="scanner-vault__title">
               AI Deepfake <span>Detection</span>
             </h3>
@@ -58,7 +58,7 @@ export default function ScannerVisual() {
         
         <div className="scanner-vault__panel-body">
           <div className="scanner-vault__body-left">
-            <p className="scanner-vault__label">Plus Jakarta Sans</p>
+            <p className="scanner-vault__label">DeepScan AI</p>
             <h2 className="scanner-vault__main-title">
               Analysis <br /> Vault<span className="red-dot">.</span>
             </h2>

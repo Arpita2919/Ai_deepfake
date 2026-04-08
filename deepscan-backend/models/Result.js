@@ -34,6 +34,10 @@ const ResultSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.Mixed,
       default: null
     },
+    description: {
+      type: String,
+      default: ''
+    },
     analyzed_at: {
       type: Date,
       default: Date.now

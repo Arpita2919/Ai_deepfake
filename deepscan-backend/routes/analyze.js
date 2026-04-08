@@ -46,6 +46,7 @@ router.post('/analyze', upload.single('image'), async (req, res) => {
       },
       flags: metadataResult.flags,
       raw_metadata: metadataResult.raw,
+      description: req.body.description || '',
     });
 
     fs.unlink(filePath)
@@ -107,6 +108,7 @@ router.post('/analyze-video', uploadVideo.single('video'), async (req, res) => {
       },
       flags: ['Video metadata check skipped'],
       raw_metadata: null,
+      description: req.body.description || '',
     });
 
     fs.unlink(filePath)

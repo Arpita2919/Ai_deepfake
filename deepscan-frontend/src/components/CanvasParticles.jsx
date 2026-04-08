@@ -10,8 +10,7 @@ export default function CanvasParticles() {
 
     let animationId;
     let particles = [];
-    // Number of particles based on screen size: 30 for mobile, 80 for desktop
-    const numParticles = window.innerWidth < 768 ? 30 : 80;
+    const numParticles = window.innerWidth < 768 ? 40 : 90;
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -21,65 +20,56 @@ export default function CanvasParticles() {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Mouse interaction
     let mouse = { x: null, y: null };
-    const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    const handleMouseLeave = () => {
-      mouse.x = null;
-      mouse.y = null;
-    };
+    const handleMouseMove = (e) => { mouse.x = e.clientX; mouse.y = e.clientY; };
+    const handleMouseLeave = () => { mouse.x = null; mouse.y = null; };
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseleave', handleMouseLeave);
 
+    // Gen-Z color palette: purple, violet, cyan, indigo
+    const colors = ['#7c3aed', '#a78bfa', '#06b6d4', '#38bdf8', '#818cf8', '#6366f1'];
+
     class Particle {
       constructor() {
+        this.reset();
+      }
+
+      reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1; // 1px - 3px
-        this.color = Math.random() > 0.5 ? '#00d4ff' : '#0066ff';
+        this.size = Math.random() * 1.8 + 0.5;
+        this.opacity = Math.random() * 0.6 + 0.2;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
         this.baseVelocity = {
-          x: (Math.random() - 0.5) * 0.5,
-          y: (Math.random() - 0.5) * 0.5
+          x: (Math.random() - 0.5) * 0.4,
+          y: (Math.random() - 0.5) * 0.4,
         };
+        this.twinkleSpeed = Math.random() * 0.02 + 0.005;
+        this.twinkleDir = Math.random() > 0.5 ? 1 : -1;
       }
 
       update() {
-        // Gravity towards center orb
-        // Assuming orb is around center bottom of the hero section
-        const centerX = canvas.width / 2;
-        // On homepage, orb is lower part of screen, let's use some fixed center offset
-        const centerY = canvas.height * 0.4; // rough estimate of landing hero bottom
-        
-        const dx = centerX - this.x;
-        const dy = centerY - this.y;
-        const distToCenter = Math.sqrt(dx * dx + dy * dy);
-        
-        // Very slight pull to center
-        if (distToCenter > 0) {
-          this.x += (dx / distToCenter) * 0.05;
-          this.y += (dy / distToCenter) * 0.05;
-        }
-
-        // Add base velocity drift
+        // Drift
         this.x += this.baseVelocity.x;
         this.y += this.baseVelocity.y;
+
+        // Twinkle
+        this.opacity += this.twinkleSpeed * this.twinkleDir;
+        if (this.opacity > 0.8 || this.opacity < 0.1) this.twinkleDir *= -1;
 
         // Repel from mouse
         if (mouse.x !== null && mouse.y !== null) {
           const mx = this.x - mouse.x;
           const my = this.y - mouse.y;
           const mouseDist = Math.sqrt(mx * mx + my * my);
-          if (mouseDist < 120) {
-            const force = (120 - mouseDist) / 120;
-            this.x += (mx / mouseDist) * force * 3;
-            this.y += (my / mouseDist) * force * 3;
+          if (mouseDist < 100) {
+            const force = (100 - mouseDist) / 100;
+            this.x += (mx / mouseDist) * force * 2.5;
+            this.y += (my / mouseDist) * force * 2.5;
           }
         }
 
-        // Screen wrap
+        // Wrap
         if (this.x < 0) this.x = canvas.width;
         if (this.x > canvas.width) this.x = 0;
         if (this.y < 0) this.y = canvas.height;
@@ -87,29 +77,50 @@ export default function CanvasParticles() {
       }
 
       draw() {
+        ctx.globalAlpha = this.opacity;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 8;
         ctx.shadowColor = this.color;
         ctx.fill();
-        ctx.shadowBlur = 0; // reset
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
       }
     }
 
-    // Init particles
+    // Draw connecting lines between nearby particles
+    function drawConnections() {
+      const maxDist = 120;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < maxDist) {
+            const alpha = (1 - dist / maxDist) * 0.12;
+            ctx.globalAlpha = alpha;
+            ctx.strokeStyle = particles[i].color;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
+      }
+    }
+
     for (let i = 0; i < numParticles; i++) {
       particles.push(new Particle());
     }
 
     const animate = () => {
-      // Pause if tab is hidden
       if (!document.hidden) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-          p.update();
-          p.draw();
-        });
+        drawConnections();
+        particles.forEach(p => { p.update(); p.draw(); });
       }
       animationId = requestAnimationFrame(animate);
     };
@@ -129,12 +140,10 @@ export default function CanvasParticles() {
       ref={canvasRef}
       style={{
         position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
+        top: 0, left: 0,
+        width: '100%', height: '100%',
         zIndex: 0,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
       }}
     />
   );

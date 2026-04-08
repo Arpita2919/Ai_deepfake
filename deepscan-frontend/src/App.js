@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 import CheckerPage from './pages/CheckerPage';
 import AuthPage from './pages/AuthPage';
 import { clearAuth, getAuth, setAuth } from './auth/authStorage';
-import CanvasParticles from './components/CanvasParticles';
+import DevBackground from './components/DevBackground';
 
 function App() {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div className="app">
-      <CanvasParticles />
+      <DevBackground />
       <Navbar {...navbarProps} />
       <main className="app__content">
         <Routes>
