@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import AnimatedTitle from '../components/AnimatedTitle';
 import ScannerVisual from '../components/ScannerVisual';
 import FeatureCardComponent from '../components/FeatureCardComponent';
 import CountUp from '../components/CountUp';
