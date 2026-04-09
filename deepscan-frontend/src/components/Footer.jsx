@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="footer-simple__inner">
         <div className="footer-simple__grid">
           <div className="footer-simple__info">
-            <h3 className="footer-simple__logo">DeepScan<span>.</span></h3>
+            <h3 className="footer-simple__logo">Deepfake<span>.</span></h3>
             <p className="footer-simple__tagline">AI Deepfake Detection Platform</p>
           </div>
           

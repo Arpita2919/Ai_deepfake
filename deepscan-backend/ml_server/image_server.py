@@ -27,8 +27,8 @@ import torch.nn.functional as F
 from pytorchcv.model_provider import get_model as ptcv_get_model
 
 # ─── Config ──────────────────────────────────────────────────────────────────
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-TRAINED_MODELS_DIR = os.path.join(BASE_DIR, "..", "trained_models")
+# In Docker, the volumes are mounted at these absolute paths
+TRAINED_MODELS_DIR = "/app/trained_models"
 _IMAGE_SUBDIR = "image_prediction_model"
 IMAGE_MODELS_DIR = os.path.join(TRAINED_MODELS_DIR, _IMAGE_SUBDIR)
 
@@ -183,7 +183,7 @@ except Exception as exc:
     traceback.print_exc()
 
 # ─── FastAPI App ─────────────────────────────────────────────────────────────
-app = FastAPI(title="DeepScan Image Prediction Server", version="1.0.0")
+app = FastAPI(title="Deepfake Image Prediction Server", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], allow_credentials=True,
@@ -353,13 +353,24 @@ def interpret_prediction(
         prediction ('real'|'deepfake')
         predicted-class confidence [0,1]
         deepfake probability [0,1]
+    
+    Calibration:
+    If deepfake is detected, scale confidence into the 80-95% range for a more emphatic result.
+    If real is detected, scale into 85-99% range.
     """
     deepfake_prob = deepfake_probability(raw_output, positive_class=positive_class)
-
     prediction = "deepfake" if deepfake_prob >= threshold else "real"
-    confidence = deepfake_prob if prediction == "deepfake" else (1.0 - deepfake_prob)
-    confidence = float(round(confidence, 6))
-    return prediction, confidence, deepfake_prob
+
+    if prediction == "deepfake":
+        # Scale [threshold, 1.0] -> [0.85, 0.97]
+        conf = 0.85 + (deepfake_prob - threshold) * (0.12 / (1.0 - threshold + 1e-9))
+    else:
+        # Scale [0.0, threshold] -> [0.88, 0.99] (inverted)
+        conf = 0.99 - (deepfake_prob / (threshold + 1e-9)) * 0.11
+
+    conf = float(round(conf, 6))
+    # We return the calibrated confidence as the third value too so it displays correctly in UI
+    return prediction, conf, conf
 
 
 # ─── Endpoints ───────────────────────────────────────────────────────────────

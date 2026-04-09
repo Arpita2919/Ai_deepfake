@@ -91,15 +91,8 @@ body {
   transform-style: preserve-3d;
 }
 
-/* Cyber-Grid and Vignette */
-.app::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 1; pointer-events: none;
-  background-image:
-    linear-gradient(var(--primary-dim) 1px, transparent 1px),
-    linear-gradient(90deg, var(--primary-dim) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
+/* Cyber-Grid and Vignette
+   Removed grid pattern per user request */
 
 .app::after {
   content: '';

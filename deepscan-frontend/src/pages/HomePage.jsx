@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+// Force recompile at 2026-04-09 08:39
 import ScannerVisual from '../components/ScannerVisual';
 import FeatureCardComponent from '../components/FeatureCardComponent';
 import CountUp from '../components/CountUp';
@@ -50,12 +51,12 @@ export default function HomePage({ isAuthed }) {
               $ npm install authenticity --save
             </div>
             <h1 className="landing__main-title">
-              Engineered <br />
-              <span>Authenticity.</span>
+              Authenticity <br />
+              <span>Verified.</span>
             </h1>
             <p className="landing__subtext" style={{ maxWidth: '480px' }}>
               The high-performance neural engine for deepfake detection. 
-              Verify media at its source with sub-second latency and 99.2% accuracy.
+              Verify media at its source with sub-second latency and 85% accuracy.
             </p>
 
             <div className="landing__cta">
@@ -78,7 +79,7 @@ export default function HomePage({ isAuthed }) {
               </div>
               <div className="tech-stat-item">
                 <span className="label" style={{ fontFamily: "'JetBrains Mono', monospace" }}>CONFIDENCE_RATIO</span>
-                <span className="value" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>99.2%</span>
+                <span className="value" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>85%</span>
               </div>
               <div className="tech-stat-item">
                 <span className="label" style={{ fontFamily: "'JetBrains Mono', monospace" }}>SYSTEM_HEALTH</span>

@@ -44,7 +44,7 @@ services:
       - PORT=5000
       - MONGODB_URI=mongodb://mongo:27017/deepscan
       - CORS_ORIGIN=http://localhost:3000,http://localhost:3001
-      - FLASK_ML_URL=http://ml-service:5001
+      - FLASK_ML_URL=http://ml-service:7000
     depends_on:
       mongo:
         condition: service_healthy
@@ -71,16 +71,21 @@ services:
     depends_on:
       - backend
 
-  # ── Python ML Inference Service ──────────────────────────────
+  # ── Python ML Inference Service (PyTorch) ────────────────────
   ml-service:
     build:
-      context: ./deepscan-backend/ml_service
+      context: ./deepscan-backend/ml_server
       dockerfile: Dockerfile
     container_name: deepscan-ml-service
     restart: unless-stopped
     ports:
-      - "5001:5001"
+      - "7000:7000"
+    environment:
+      - IMAGE_SERVER_PORT=7000
+      - DEEPSCAN_IMAGE_SIZE=64
+      - DEEPSCAN_IMAGE_POSITIVE_CLASS=real
     volumes:
+      - ./deepscan-backend/ml_server:/app
       - ./deepscan-backend/trained_models:/app/trained_models
       - backend_uploads:/app/uploads
     deploy:

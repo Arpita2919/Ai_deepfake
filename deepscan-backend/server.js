@@ -55,7 +55,7 @@ app.use('/api', analyzeRoute);
 
 // ─── Health Check ──────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
-  res.json({ status: 'DeepScan Backend Running 🚀', timestamp: new Date().toISOString() });
+  res.json({ status: 'Deepfake Backend Running 🚀', timestamp: new Date().toISOString() });
 });
 
 // ─── 404 Handler ───────────────────────────────────────────────────────────
@@ -74,12 +74,12 @@ app.use((err, req, res, next) => {
 // ─── Start Server ──────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Deepfake Server running on http://localhost:${PORT}`);
 });
 
 // ─── Graceful Shutdown ─────────────────────────────────────────────────────
 const shutdown = async (signal) => {
-  console.log(`\n🛑 ${signal} received. Shutting down gracefully...`);
+  console.log(`\n🛑 ${signal} received. Shutting down Deepfake gracefully...`);
   server.close(async () => {
     await mongoose.connection.close();
     console.log('✅ MongoDB connection closed. Exiting.');

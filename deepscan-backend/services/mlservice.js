@@ -4,7 +4,7 @@ const FormData = require('form-data');
 const path = require('path');
 
 // --- Config -----------------------------------------------------------------
-const IMAGE_SERVER_URL = process.env.FLASK_ML_URL || 'http://127.0.0.1:5001';
+const IMAGE_SERVER_URL = process.env.FLASK_ML_URL || 'http://127.0.0.1:7000';
 
 function parseTimeoutMs(value, fallback) {
   const n = Number.parseInt(String(value ?? ''), 10);
@@ -33,25 +33,23 @@ const detectMediaType = (filePath, mimeType) => {
 };
 
 const runImageModel = async (filePath) => {
+  const form = new FormData();
+  form.append('file', fs.createReadStream(filePath));
+
   try {
     const response = await axios.post(
-      `${IMAGE_SERVER_URL}/predict-image`,
-      { filepath: path.resolve(filePath) },
+      `${IMAGE_SERVER_URL}/predict/image`,
+      form,
       {
+        headers: form.getHeaders(),
         timeout: IMAGE_PREDICT_TIMEOUT_MS,
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
       }
     );
 
-    const { model_score, artifact_score } = response.data || {};
-    const score = Number(model_score ?? artifact_score);
-
-    if (!Number.isFinite(score)) {
-      throw new Error(`Invalid ML response: ${JSON.stringify(response.data)}`);
-    }
-
-    // Backend logic: Score >= 50 is deepfake
-    const prediction = score >= 50 ? 'deepfake' : 'real';
-    const confidence = score / 100;
+    const { prediction, confidence, deepfake_probability } = response.data || {};
+    const score = Number(deepfake_probability * 100);
 
     return {
       prediction,
@@ -70,28 +68,28 @@ const runImageModel = async (filePath) => {
 };
 
 const runVideoModel = async (filePath) => {
+  const form = new FormData();
+  form.append('file', fs.createReadStream(filePath));
+
   try {
     const response = await axios.post(
-      `${IMAGE_SERVER_URL}/predict-video`,
-      { filepath: path.resolve(filePath) },
+      `${IMAGE_SERVER_URL}/predict/video-as-image`,
+      form,
       {
+        headers: form.getHeaders(),
         timeout: VIDEO_PREDICT_TIMEOUT_MS,
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
       }
     );
 
-    const { model_score, artifact_score } = response.data || {};
-    const score = Number(model_score ?? artifact_score);
-
-    if (!Number.isFinite(score)) {
-      throw new Error(`Invalid ML response: ${JSON.stringify(response.data)}`);
-    }
-
-    const prediction = score >= 50 ? 'deepfake' : 'real';
+    const { prediction, confidence, deepfake_probability } = response.data || {};
+    const score = Number(deepfake_probability * 100);
 
     return {
       model_score: score,
       prediction,
-      confidence: score / 100,
+      confidence,
       status: 'success',
       media_type: 'video',
     };
