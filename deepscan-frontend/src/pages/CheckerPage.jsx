@@ -67,14 +67,14 @@ export default function CheckerPage() {
               <span>✓</span> Results include per-layer neural breakdown
             </div>
             <div className="checker-sidebar__tip">
-              <span>✓</span> Validated on generated & manipulated art
+              <span>✓</span> 91k real and 91k AI generated images are used to verify the dataset of ML model
             </div>
           </div>
 
           <div className="checker-sidebar__stat-row">
             <div className="checker-sidebar__stat">
-              <span className="checker-sidebar__stat-val">99.2%</span>
-              <span className="checker-sidebar__stat-lbl">Accuracy</span>
+              <span className="checker-sidebar__stat-val">182K</span>
+              <span className="checker-sidebar__stat-lbl">Dataset</span>
             </div>
             <div className="checker-sidebar__stat">
               <span className="checker-sidebar__stat-val">427</span>

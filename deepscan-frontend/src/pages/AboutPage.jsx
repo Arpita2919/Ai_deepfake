@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const STATS = [
   { num: '3-Part', label: 'Signal Set', sub: 'model • artifacts • metadata' },
+  { num: '182K+', label: 'Verified Images', sub: '91k Real & 91k AI Generated' },
   { num: '0–100%', label: 'Output Score', sub: 'probability-style result' },
-  { num: '99.2%', label: 'Accuracy', sub: 'on benchmark datasets' },
 ];
 
 const PRIORITIES = [

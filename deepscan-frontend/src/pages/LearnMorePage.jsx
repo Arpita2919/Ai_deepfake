@@ -7,7 +7,7 @@ const TECH_BLOCKS = [
     category: 'Core AI',
     title: 'Model Signal Processor',
     desc: 'Deep neural network trained on millions of authentic and synthetic pairs to identify generational artifacts in latent space.',
-    metrics: ['99.2% Base Accuracy', 'Pixel-wise Analysis', 'Low-latency Inference']
+    metrics: ['182k Verification Set (91k Real / 91k AI)', 'Pixel-wise Analysis', 'Low-latency Inference']
   },
   {
     id: '02',

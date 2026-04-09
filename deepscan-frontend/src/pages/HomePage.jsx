@@ -56,7 +56,7 @@ export default function HomePage({ isAuthed }) {
             </h1>
             <p className="landing__subtext" style={{ maxWidth: '480px' }}>
               The high-performance neural engine for deepfake detection. 
-              Verify media at its source with sub-second latency and 85% accuracy.
+              Verified on a dataset of 91k real and 91k AI generated images.
             </p>
 
             <div className="landing__cta">
@@ -78,8 +78,8 @@ export default function HomePage({ isAuthed }) {
                 <span className="value" style={{ fontFamily: "'Space Grotesk', sans-serif" }}><CountUp end={1248390} /></span>
               </div>
               <div className="tech-stat-item">
-                <span className="label" style={{ fontFamily: "'JetBrains Mono', monospace" }}>CONFIDENCE_RATIO</span>
-                <span className="value" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>85%</span>
+                <span className="label" style={{ fontFamily: "'JetBrains Mono', monospace" }}>VERIFIED_DATASET</span>
+                <span className="value" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>182,000</span>
               </div>
               <div className="tech-stat-item">
                 <span className="label" style={{ fontFamily: "'JetBrains Mono', monospace" }}>SYSTEM_HEALTH</span>
