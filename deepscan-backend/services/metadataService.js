@@ -2,9 +2,28 @@ const exifr = require('exifr');
 
 const analyzeMetadata = async (imagePath) => {
   try {
-    const exif = await exifr.parse(imagePath, {
-      pick: ['Make', 'Model', 'Software', 'DateTime', 'GPSLatitude', 'GPSLongitude', 'Artist', 'Copyright']
+    const fs = require('fs').promises;
+    const buffer = await fs.readFile(imagePath);
+    const exif = await exifr.parse(buffer, {
+      translateKeys: true,
+      translateValues: true,
+      tiff: true,
+      xmp: true,
+      icc: true,
+      iptc: true,
+      jfif: true
     });
+    
+    console.log('--- EXIF DEBUG INFO ---');
+    console.log('Path:', imagePath);
+    console.log('Buffer Size:', buffer.length);
+    console.log('Data Found Keys:', exif ? Object.keys(exif).join(', ') : 'NONE');
+    if (exif) {
+      console.log('--- RAW EXIF OBJECT ---');
+      console.log(JSON.stringify(exif));
+      console.log('-----------------------');
+    }
+    console.log('-----------------------');
 
     let score = 50; // start neutral
     const flags = [];

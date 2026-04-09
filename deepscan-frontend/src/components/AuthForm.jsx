@@ -7,7 +7,6 @@ function isValidEmail(value) {
 export default function AuthForm({ initialMode = 'signin', showClose = false, onClose, onSuccess }) {
   const normalizedInitialMode = initialMode === 'signup' ? 'signup' : 'signin';
   const [activeMode, setActiveMode] = useState(normalizedInitialMode);
-  const [topic, setTopic] = useState('AI Image Check');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -49,7 +48,6 @@ export default function AuthForm({ initialMode = 'signin', showClose = false, on
 
     onSuccess?.({
       email: email.trim().toLowerCase(),
-      topic,
       name: activeMode === 'signup' ? `${firstName.trim()} ${lastName.trim()}` : null,
       createdAt: new Date().toISOString(),
     });
@@ -92,15 +90,7 @@ export default function AuthForm({ initialMode = 'signin', showClose = false, on
       </div>
 
       <form className="auth-modal__form" onSubmit={handleSubmit}>
-        <div className="auth-modal__field">
-          <label htmlFor="topic">Select topic</label>
-          <select id="topic" value={topic} onChange={(e) => setTopic(e.target.value)}>
-            <option>AI Image Check</option>
-            <option>How it works</option>
-            <option>Partnership</option>
-            <option>Support</option>
-          </select>
-        </div>
+
 
         {activeMode === 'signup' && (
           <div className="auth-modal__row">
