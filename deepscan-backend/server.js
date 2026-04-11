@@ -10,6 +10,15 @@ dotenv.config();
 
 const app = express();
 
+// Ensure uploads directory exists
+const fs_sync = require('fs');
+const path = require('path');
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs_sync.existsSync(uploadsDir)) {
+  fs_sync.mkdirSync(uploadsDir);
+  console.log('📁 Created uploads directory');
+}
+
 // ─── Security & Logging ────────────────────────────────────────────────────
 app.use(helmet());
 app.use(morgan('dev'));
