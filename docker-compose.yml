@@ -81,12 +81,12 @@ services:
     ports:
       - "7000:7000"
     environment:
-      - IMAGE_SERVER_PORT=7000
+      - PORT=7000
       - DEEPSCAN_IMAGE_SIZE=64
       - DEEPSCAN_IMAGE_POSITIVE_CLASS=real
     volumes:
       - ./deepscan-backend/ml_server:/app
-      - ./deepscan-backend/trained_models:/app/trained_models
+      - ./deepscan-backend/ml_server/trained_models:/app/trained_models
       - backend_uploads:/app/uploads
     deploy:
       resources:
