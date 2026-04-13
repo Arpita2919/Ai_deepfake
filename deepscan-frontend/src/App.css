@@ -1798,3 +1798,89 @@ select option {
   .tech-module:hover, .tech-module:nth-child(even):hover { transform: none; }
 }
 
+@media (max-width: 768px) {
+  /* Layout Structures */
+  .features-grid { display: flex; flex-direction: column; gap: 16px; }
+  .fcard { grid-column: span 12 !important; width: 100%; }
+  
+  .about-band--hero { grid-template-columns: 1fr; text-align: center; }
+  .about-band--stats { grid-template-columns: 1fr; }
+  .about__timeline-grid { grid-template-columns: 1fr; }
+  
+  .contact-page__grid { grid-template-columns: 1fr; }
+  .contact__row { grid-template-columns: 1fr; }
+  
+  .hiw__layer { grid-template-columns: 1fr; text-align: center; padding: 24px; }
+  .hiw__layer-cols { grid-template-columns: 1fr; }
+  .hiw__layer-num { margin-bottom: 12px; }
+
+  /* Navbar */
+  .navbar { height: auto; min-height: 80px; padding: 12px 0; }
+  .navbar__inner { flex-direction: column; gap: 16px; justify-content: center; }
+  .navbar__right { flex-wrap: wrap; justify-content: center; gap: 12px; width: 100%; }
+
+  /* App Content */
+  .app__content { padding: 24px 20px 60px; }
+
+  /* Typography */
+  .page__title--glow, .section-title, .animated-hero__title, .checker-page__title { font-size: 2.2rem !important; line-height: 1.1; }
+  .landing__main-title { font-size: 2.4rem !important; }
+}
+
+@media (max-width: 480px) {
+  /* Smaller screens */
+  .auth-modal { padding: 24px; }
+  .auth-modal__row { grid-template-columns: 1fr; }
+  .auth-modal__header { flex-direction: column; align-items: flex-start; }
+  
+  .navbar__logo-text { font-size: 1.15rem; }
+  
+  .landing__hero.custom-layout { padding: 40px 16px; }
+  .landing__main-title { font-size: 2rem !important; }
+  .landing__subtext { font-size: 1rem; }
+
+  .features-page__header, .hiw__header, .about-band { padding: 32px 20px; }
+
+  .upload-zone__drop { padding: 32px 16px; }
+  .upload-zone__button { padding: 14px 20px; font-size: 0.95rem; }
+  
+  .result-card, .metadata-panel { padding: 20px; }
+  .checker-sidebar__card { padding: 20px; }
+  
+  .about-stat-num { font-size: 2rem; }
+  .about-stat-card { padding: 20px; }
+  
+  .fp-btn, .features__btn, .about__btn { width: 100%; justify-content: center; text-align: center; }
+  .hiw__btns { flex-direction: column; width: 100%; gap: 10px; }
+  .hiw__btn { width: 100%; justify-content: center; }
+  
+  /* Checker page */
+  .checker-page__title { font-size: 1.8rem !important; }
+  .checker-sidebar__stat-row { grid-template-columns: 1fr; gap: 12px; }
+  .checker-page__hero { padding: 24px 16px 20px; }
+  .checker-page__body { padding-bottom: 40px; }
+  
+  /* Misc Overflow Protections */
+  img, video { max-width: 100%; height: auto; }
+  html, body { overflow-x: hidden; width: 100%; }
+}
+
+@media (max-width: 320px) {
+  /* Small phones */
+  .landing__main-title { font-size: 1.6rem !important; }
+  .page__title--glow, .section-title, .animated-hero__title { font-size: 1.6rem !important; }
+  .checker-page__title { font-size: 1.5rem !important; }
+  
+  .auth-modal { padding: 16px; }
+  
+  .navbar__logo-text { font-size: 1rem; }
+  .navbar__btn { font-size: 0.75rem; padding: 6px 10px; }
+  
+  .upload-zone__button { padding: 12px 16px; font-size: 0.85rem; }
+  .upload-zone__prompt { font-size: 1rem; }
+  
+  .fcard__num { font-size: 2rem; }
+  .fcard { padding: 20px; }
+  
+  .contact-glass { padding: 24px 16px; }
+}
